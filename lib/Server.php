@@ -52,7 +52,7 @@ class Server implements LoggerAwareInterface
      * @param array $options
      *   Associative array containing:
      *   - filter:        Array of opcodes to handle. Default: ['text', 'binary'].
-     *   - fragment_size: Set framgemnt size.  Default: 4096
+     *   - fragment_size: Set fragment size.  Default: 4096
      *   - logger:        PSR-3 compatible logger.  Default NullLogger.
      *   - port:          Chose port for listening.  Default 8000.
      *   - return_obj:    If receive() function return Message instance.  Default false.
