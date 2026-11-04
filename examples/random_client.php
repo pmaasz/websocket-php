@@ -49,7 +49,7 @@ while (true) {
         $info = json_encode([
             'uri'           => $options['uri'],
             'timeout'       => $options['timeout'],
-            'framgemt_size' => $client->getFragmentSize(),
+            'fragment_size' => $client->getFragmentSize(),
         ]);
         echo "> Creating client {$info}\n";
 

@@ -50,7 +50,7 @@ while (true) {
         $info = json_encode([
           'port'          => $server->getPort(),
           'timeout'       => $options['timeout'],
-          'framgemt_size' => $server->getFragmentSize(),
+          'fragment_size' => $server->getFragmentSize(),
         ]);
         echo "> Creating server {$info}\n";
 

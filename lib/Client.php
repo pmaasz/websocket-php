@@ -55,7 +55,7 @@ class Client implements LoggerAwareInterface
      *   Associative array containing:
      *   - context:       Set the stream context. Default: empty context
      *   - timeout:       Set the socket timeout in seconds.  Default: 5
-     *   - fragment_size: Set framgemnt size.  Default: 4096
+     *   - fragment_size: Set fragment size.  Default: 4096
      *   - headers:       Associative array of headers to set/override.
      */
     public function __construct($uri, array $options = [])
