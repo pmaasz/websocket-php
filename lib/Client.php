@@ -325,7 +325,7 @@ class Client implements LoggerAwareInterface
 
         // Set the stream context options if they're already set in the config
         if (isset($this->options['context'])) {
-            // Suppress the error since we'll catch it below
+            // Suppress the error since we'll catch it below.
             if (@get_resource_type($this->options['context']) === 'stream-context') {
                 $context = $this->options['context'];
             } else {
