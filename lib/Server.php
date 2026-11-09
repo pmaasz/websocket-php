@@ -456,8 +456,13 @@ class Server implements LoggerAwareInterface
         }
 
         $key = trim($matches[1]);
+        $decoded_key = base64_decode($key, true);
+        if ($decoded_key === false || strlen($decoded_key) !== 16) {
+            $error = "Client sent invalid Sec-WebSocket-Key in upgrade request.";
+            $this->logger->error($error);
+            throw new ConnectionException($error);
+        }
 
-        /// @todo Validate key length and base 64...
         $response_key = base64_encode(pack('H*', sha1($key . '258EAFA5-E914-47DA-95CA-C5AB0DC85B11')));
 
         $header = "HTTP/1.1 101 Switching Protocols\r\n"
