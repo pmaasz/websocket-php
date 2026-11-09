@@ -405,6 +405,12 @@ class Client implements LoggerAwareInterface
                 $headers = array_merge($headers, $this->options['headers']);
             }
 
+            foreach ($headers as $name => $value) {
+                unset($headers[$name]);
+                $cleanName = str_replace(["\r", "\n"], '', (string) $name);
+                $headers[$cleanName] = str_replace(["\r", "\n"], '', (string) $value);
+            }
+
             $header = "GET {$http_uri} HTTP/1.1\r\n" . implode(
                 "\r\n",
                 array_map(
