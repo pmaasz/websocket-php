@@ -248,17 +248,13 @@ class Connection implements LoggerAwareInterface
 
         // Handle masking
         if ($masked) {
-            // generate a random mask:
-            $mask = '';
-            for ($i = 0; $i < 4; $i++) {
-                $mask .= chr(rand(0, 255));
-            }
+            $mask = random_bytes(4);
             $data .= $mask;
-
-            // Append payload to frame:
+            $masked_payload = '';
             for ($i = 0; $i < $payload_length; $i++) {
-                $data .= $payload[$i] ^ $mask[$i % 4];
+                $masked_payload .= $payload[$i] ^ $mask[$i % 4];
             }
+            $data .= $masked_payload;
         } else {
             $data .= $payload;
         }
