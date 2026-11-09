@@ -111,6 +111,7 @@ class Connection implements LoggerAwareInterface
     // Pull a message from stream
     public function pullMessage(): Message
     {
+        // shortcut: interleaved ping/pong during fragmentation is returned, not buffered; upgrade if callers need RFC-strict interleaving.
         do {
             $frame = $this->pullFrame();
             $frame = $this->autoRespond($frame);
@@ -130,7 +131,7 @@ class Connection implements LoggerAwareInterface
                 continue; // Continue reading
             }
 
-            // Subsequent continuation frames, add to buffer
+            // Subsequent continuation frames, add to buffer (including final).
             if ($continuation) {
                 $this->read_buffer['payload'] .= $payload;
                 $this->read_buffer['frames']++;
