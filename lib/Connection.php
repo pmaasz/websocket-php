@@ -47,7 +47,7 @@ class Connection implements LoggerAwareInterface
     public function __destruct()
     {
         if ($this->getType() === 'stream') {
-            fclose($this->stream);
+            @fclose($this->stream);
         }
     }
 
@@ -322,7 +322,7 @@ class Connection implements LoggerAwareInterface
     public function disconnect(): bool
     {
         $this->logger->debug('Closing connection');
-        return fclose($this->stream);
+        return (bool) @fclose($this->stream);
     }
 
     /**
