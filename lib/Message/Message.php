@@ -61,7 +61,7 @@ abstract class Message
     // Split messages into frames
     public function getFrames(bool $masked = true, int $framesize = 4096): array
     {
-
+        $framesize = $framesize > 0 ? $framesize : 4096;
         $frames = [];
         $split = str_split($this->getContent(), $framesize) ?: [''];
         foreach ($split as $payload) {

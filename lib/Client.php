@@ -104,7 +104,7 @@ class Client implements LoggerAwareInterface
      */
     public function setFragmentSize(int $fragment_size): self
     {
-        $this->options['fragment_size'] = $fragment_size;
+        $this->options['fragment_size'] = $fragment_size > 0 ? $fragment_size : 4096;
         $this->connection->setOptions($this->options);
         return $this;
     }
