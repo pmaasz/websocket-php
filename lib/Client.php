@@ -462,11 +462,7 @@ class Client implements LoggerAwareInterface
      */
     protected static function generateKey(): string
     {
-        $key = '';
-        for ($i = 0; $i < 16; $i++) {
-            $key .= chr(rand(33, 126));
-        }
-        return base64_encode($key);
+        return base64_encode(random_bytes(16));
     }
 
     protected function parseUri($uri): UriInterface
