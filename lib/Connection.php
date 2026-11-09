@@ -210,9 +210,8 @@ class Connection implements LoggerAwareInterface
 
             if ($masked) {
                 // Unmask payload.
-                for ($i = 0; $i < $payload_length; $i++) {
-                    $payload .= ($data[$i] ^ $masking_key[$i % 4]);
-                }
+                $mask = str_repeat($masking_key, intdiv($payload_length, 4) + 1);
+                $payload = $data ^ substr($mask, 0, $payload_length);
             } else {
                 $payload = $data;
             }
@@ -252,12 +251,8 @@ class Connection implements LoggerAwareInterface
         // Handle masking
         if ($masked) {
             $mask = random_bytes(4);
-            $data .= $mask;
-            $masked_payload = '';
-            for ($i = 0; $i < $payload_length; $i++) {
-                $masked_payload .= $payload[$i] ^ $mask[$i % 4];
-            }
-            $data .= $masked_payload;
+            $mask_repeated = str_repeat($mask, intdiv($payload_length, 4) + 1);
+            $data .= $mask . ($payload ^ substr($mask_repeated, 0, $payload_length));
         } else {
             $data .= $payload;
         }
