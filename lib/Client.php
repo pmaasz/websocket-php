@@ -485,6 +485,7 @@ class Client implements LoggerAwareInterface
         } else {
             throw new BadUriException("Provided URI must be a UriInterface or string.");
         }
+        // scheme shortcut: only ws/wss supported
         if (!in_array($uri->getScheme(), ['ws', 'wss'])) {
             throw new BadUriException("Invalid URI scheme, must be 'ws' or 'wss'.");
         }
