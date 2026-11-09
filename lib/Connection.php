@@ -436,6 +436,7 @@ class Connection implements LoggerAwareInterface
     {
         $line = fgets($this->stream, $length);
         if ($line === false) {
+            // throwException surfaces stream timeouts as TimeoutException.
             $this->throwException('Could not read from stream');
         }
         $read = strlen($line);
