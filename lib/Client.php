@@ -392,6 +392,7 @@ class Client implements LoggerAwareInterface
 
             // Handle basic authentication.
             if ($userinfo = $this->socket_uri->getUserInfo()) {
+                // No extra CRLF; header framing is handled below.
                 $headers['authorization'] = 'Basic ' . base64_encode($userinfo);
             }
 
