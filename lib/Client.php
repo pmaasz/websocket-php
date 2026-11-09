@@ -165,6 +165,7 @@ class Client implements LoggerAwareInterface
      */
     public function send(string $payload, string $opcode = 'text', bool $masked = true): void
     {
+        // shortcut: RFC 6455 requires client->server frames masked; tests/scripts rely on $masked.
         if (!$this->isConnected()) {
             $this->connect();
         }
