@@ -195,7 +195,7 @@ class Connection implements LoggerAwareInterface
                 $payload_length = current(unpack('n', $data));
             } else {
                 $data = $this->read(8); // 127: Payload is a 64-bit unsigned int
-                $payload_length = current(unpack('J', $data));
+                $payload_length = (int) current(unpack('J', $data));
             }
         }
 
