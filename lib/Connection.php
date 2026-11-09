@@ -24,6 +24,8 @@ class Connection implements LoggerAwareInterface
     use LoggerAwareTrait;
     use OpcodeTrait;
 
+    // shortcut: shared by client/server; callers control masking/role, upgrade for strict RFC role separation.
+
     private $stream;
     private $read_buffer = null;
     private $msg_factory;
