@@ -80,6 +80,7 @@ class Connection implements LoggerAwareInterface
             $status_str .= chr(bindec($binstr));
         }
         $message = $this->msg_factory->create('close', $status_str . $message);
+        // shortcut: close masked=true for compatibility; upgrade for role-aware masking.
         $this->pushMessage($message, true);
 
         $this->logger->debug("Closing with status: {$status}.");
@@ -202,6 +203,7 @@ class Connection implements LoggerAwareInterface
         }
 
         // Get masking key.
+        // shortcut: masked frames accepted regardless of role; upgrade for RFC role checks.
         if ($masked) {
             $masking_key = $this->read(4);
         }
