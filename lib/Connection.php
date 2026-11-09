@@ -285,19 +285,18 @@ class Connection implements LoggerAwareInterface
                 // If we received close, possibly acknowledge and close connection
                 $status_bin = '';
                 $status = '';
-                if ($payload_length > 0) {
-                    $status_bin = $payload[0] . $payload[1];
+                if ($payload_length >= 2) {
+                    $status_bin = substr($payload, 0, 2);
                     $status = current(unpack('n', $payload));
                     $this->close_status = $status;
-                }
-                // Get additional close message
-                if ($payload_length >= 2) {
                     $payload = substr($payload, 2);
+                } elseif ($payload_length > 0) {
+                    $payload = '';
                 }
 
                 $this->logger->debug("[connection] Received 'close', status: {$status}.");
                 if (!$this->is_closing) {
-                    $ack =  "{$status_bin}Close acknowledged: {$status}";
+                    $ack = "{$status_bin}Close acknowledged: {$status}";
                     $message = $this->msg_factory->create('close', $ack);
                     $this->pushMessage($message, $masked);
                 } else {
