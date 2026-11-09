@@ -276,7 +276,7 @@ class Connection implements LoggerAwareInterface
 
         switch ($opcode) {
             case 'ping':
-                // If we received a ping, respond with a pong
+                // RFC 6455: respond to ping with pong carrying the same payload.
                 $this->logger->debug("[connection] Received 'ping', sending 'pong'.");
                 $message = $this->msg_factory->create('pong', $payload);
                 $this->pushMessage($message, $masked);
