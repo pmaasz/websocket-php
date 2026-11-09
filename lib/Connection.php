@@ -25,7 +25,7 @@ class Connection implements LoggerAwareInterface
     use OpcodeTrait;
 
     private $stream;
-    private $read_buffer;
+    private $read_buffer = null;
     private $msg_factory;
     private $options = [];
 

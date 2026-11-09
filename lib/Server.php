@@ -38,12 +38,12 @@ class Server implements LoggerAwareInterface
 
     protected $port;
     protected $listening;
-    protected $request;
-    protected $request_path;
+    protected $request = [];
+    protected $request_path = '';
     private $connections = [];
     private $options = [];
     private $listen = false;
-    private $last_opcode;
+    private $last_opcode = null;
 
 
     /* ---------- Magic methods ------------------------------------------------------ */
