@@ -10,11 +10,11 @@ class EchoLog implements \Psr\Log\LoggerInterface
 {
     use \Psr\Log\LoggerTrait;
 
-    public function log($level, $message, array $context = [])
+    public function log($level, $message, array $context = []): void
     {
         $message = $this->interpolate($message, $context);
         $context_string = empty($context) ? '' : json_encode($context);
-        echo str_pad($level, 8) . " | {$message} {$context_string}\n";
+        echo str_pad((string) $level, 8) . " | {$message} {$context_string}\n";
     }
 
     public function interpolate($message, array $context = [])
