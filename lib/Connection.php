@@ -97,7 +97,8 @@ class Connection implements LoggerAwareInterface
     // Push a message to stream
     public function pushMessage(Message $message, bool $masked = true): void
     {
-        $frames = $message->getFrames($masked, $this->options['fragment_size']);
+        $framesize = $this->options['fragment_size'] ?? 4096;
+        $frames = $message->getFrames($masked, $framesize);
         foreach ($frames as $frame) {
             $this->pushFrame($frame);
         }

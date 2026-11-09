@@ -316,8 +316,10 @@ class Server implements LoggerAwareInterface
     {
         foreach ($this->request as $row) {
             if (stripos($row, $header) !== false) {
-                list($headername, $headervalue) = explode(":", $row);
-                return trim($headervalue);
+                $parts = explode(":", $row, 2);
+                if (count($parts) === 2) {
+                    return trim($parts[1]);
+                }
             }
         }
         return null;
@@ -444,7 +446,7 @@ class Server implements LoggerAwareInterface
         $uri_parts = parse_url($get_uri);
 
         $this->request = explode("\n", $request);
-        $this->request_path = $uri_parts['path'];
+        $this->request_path = is_array($uri_parts) && isset($uri_parts['path']) ? $uri_parts['path'] : $get_uri;
         /// @todo Get query and fragment as well.
 
         if (!preg_match('#Sec-WebSocket-Key:\s(.*)$#mUi', $request, $matches)) {
